@@ -1,0 +1,41 @@
+version: '3'
+services:
+  #
+  # mysql
+  #
+  mysql_ablogcms:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - ./db/mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: "ablogcms"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "ablogcms"
+      MYSQL_USER: "ablogcms"
+      MYSQL_PASSWORD: "ablogcms"
+  #
+  # proxy
+  #
+  proxy_ablogcms:
+    image: jwilder/nginx-proxy:latest
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - "80:80"
+  #
+  # www
+  #
+  ablogcms:
+    image: atsu666/ioncube:7.2 # phpのバージョンにあったものを指定
+    privileged: true
+    volumes:
+      - ./ablogcms:/var/www/html # host, guest間のファイル同期
+    links:
+      - mysql_ablogcms:mysql
+    environment:
+      VIRTUAL_HOST: "acms.lab,www.acms.lab" # host名を指定
+      APACHE_DOCUMENT_ROOT: "/var/www/html" # ドキュメントルートを指定
+      TZ: "ls -la /etc/localtime | cut -d/ -f8-9" # タイムゾーン設定
