@@ -41,6 +41,18 @@ docker-compose down
 127.0.0.1 acms.lab
 ```
 
+## a-blog cms 本体のインストール
+
+MAMP番の簡単インストールファイルをちょっと調整したものをいれています。
+
+[http://acms.lab/setup.php](http://acms.lab/setup.php) にアクセスすることで、必要な不本体ファイルがインストールされます。
+
+もしくは、 [a-blog cms のダウンロードページ](https://developer.a-blogcms.jp/download/) からファイルをダウンロードしてきて `ablogcms` のディレクトリに入れてから起動して、勧めて下さい。
+
+## 初期設定のデータベース設定
+
+データベースは `localhost` ではなく `mysql_ablogcms` を入力してください。また、データベース名やユーザー名、パスワードは `ablogcms` を入力してください。
+
 ## 補足
 
 ### データベース
